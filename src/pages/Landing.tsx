@@ -5,8 +5,10 @@ import theme from "../theme";
 import { createRoot } from "react-dom/client";
 import Tutorial from "./Tutorial";
 import { useLoading } from "../contexts/LoadingContext";
+import { useWeb3 } from "../contexts/Web3Context";
 
 const Landing = () => {
+  const { walletAddress, connectWallet } = useWeb3()!;
   const { setIsLoading } = useLoading();
 
   const openPopup = (): void => {
@@ -54,19 +56,26 @@ const Landing = () => {
         Property.
       </Text>
 
+      {/* <Wallet /> */}
+
+      <button id="connectWalletButton">Connect Wallet</button>
+
       {/* Styled Buttons */}
-      <Button
-        bg="gray.800" // Dark gray background
-        color="white"
-        _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
-        size="sm" // Smaller text size
-        width="40%" // Adjusted button width
-        p={4} // Padding inside the button
-        mb={2} // Margin below the button for spacing
-        onClick={openPopup}
-      >
-        Connect Wallet
-      </Button>
+      {!walletAddress && (
+        <Button
+          bg="gray.800" // Dark gray background
+          color="white"
+          _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
+          size="sm" // Smaller text size
+          width="40%" // Adjusted button width
+          p={4} // Padding inside the button
+          mb={2} // Margin below the button for spacing
+          onClick={connectWallet}
+          //onClick={handleConnectWallet}
+        >
+          Connect Wallet
+        </Button>
+      )}
 
       <Button
         bg="gray.800" // Dark gray background

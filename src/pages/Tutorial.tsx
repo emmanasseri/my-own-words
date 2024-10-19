@@ -9,10 +9,9 @@ const Tutorial = () => {
     return (
         <Box
         bg="white" // Background is all white
-        width={theme.views.pageView.width} // Set the width to the pageView width
-        height={theme.views.pageView.height} // Set the height to the pageView height
+        maxWidth={theme.views.pageView.width} // Set the width to the pageView width
+        maxHeight={theme.views.pageView.height} // Set the height to the pageView height
         display="flex"
-        flexDirection="column"
         justifyContent="space-between" // Space between the GIF, text, and button
         alignItems="center"
         p={4}

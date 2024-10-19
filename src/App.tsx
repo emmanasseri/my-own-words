@@ -6,10 +6,12 @@ import Dispute from "./pages/Dispute";
 import History from "./pages/History";
 import Tutorial from "./pages/Tutorial";
 import { LoadingProvider } from "./contexts/LoadingContext";
+import { Web3Provider } from "./contexts/Web3Context";
 import LoadingComponent from "./components/LoadingComponent";
 
 function App() {
   return (
+    <Web3Provider>
     <LoadingProvider>
       <Router>
         <LoadingComponent />
@@ -22,6 +24,7 @@ function App() {
         </Routes>
       </Router>
     </LoadingProvider>
+    </Web3Provider>
   );
 }
 
