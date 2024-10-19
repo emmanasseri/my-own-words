@@ -1,12 +1,14 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import ClickableCard from "../components/ClickableCard";
+import theme from "../theme";
 
 const Home: React.FC = () => {
   return (
     <Box
       p={6}
-      maxW="md"
+      width={theme.views.smallView.width} // Set the width to the pageView width
+      height={theme.views.smallView.height}
       mx="auto"
       mt={6}
       display="flex"
