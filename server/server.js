@@ -1,5 +1,6 @@
 // server.js
 const express = require("express");
+const cors = require("cors");
 const dotenv = require("dotenv");
 const mintRoutes = require("./routes/mint"); // Import mint routes
 //const registerRoutes = require("./routes/register"); // Import register routes
@@ -10,11 +11,13 @@ dotenv.config();
 // Initialize the Express app
 const app = express();
 
+app.use(cors());
+
 // Middleware to parse JSON bodies in requests
 app.use(express.json());
 
 // Define the routes for minting and registering NFTs
-app.use("/api/mint", mintRoutes);
+app.use("/api", mintRoutes);
 //app.use("/api/register", registerRoutes);
 
 // Default route for health check (optional)

@@ -6,7 +6,16 @@ const { ethers } = require("ethers");
 const { JsonRpcProvider } = require("ethers");
 
 // Initialize provider using the RPC URL from environment variables
-const provider = new ethers.JsonRpcProvider(process.env.STORY_RPC_URL);
+//const provider = new ethers.JsonRpcProvider(process.env.STORY_RPC_URL);
+const provider = new ethers.JsonRpcProvider({
+  url: process.env.POLYGON_RPC_PROVIDER_URL,
+  chainId: 80002,
+});
+
+provider.getNetwork().then((network) => {
+  console.log("Connected to network:", network.name); // Should be "amoy"
+  console.log("Chain ID:", network.chainId); // Should be 80002 for Amoy Testnet
+});
 
 // If you are hardcoding the wallet address as an env variable (not ideal for private key handling)
 const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
