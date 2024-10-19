@@ -1,23 +1,20 @@
 import React from "react";
 import { Box, Text, Button, Image } from "@chakra-ui/react";
-import theme from "./theme";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
-  const openTutorial = () => {
-    // Open the tutorial page
-    chrome.windows.create({
-      url: 'https://www.google.com',  // Replace this URL with the content you want in the pop-out window
-      type: 'popup',
-      width: 565,
-      height: 993,
-    });
-  };
+  const navigate = useNavigate();
+  const handleConnectWallet = () => {
+    // Logic for connecting wallet can go here
 
+    // Navigate to the Home screen
+    navigate("/home");
+  };
   return (
     <Box
-      bg="white"
-      width={theme.views.smallView.width} // Width and height are 322p
-      height={theme.views.smallView.height} // Width and height are 253px
+      bg="white" // Background is all white
+      width="small" // Small window size as defined in the theme
+      height="small.height"
       display="flex"
       flexDirection="column"
       justifyContent="space-between" // Space between the GIF, text, and button
@@ -39,13 +36,12 @@ const LandingPage = () => {
 
       {/* Bottom: Connect Wallet Button */}
       <Button
-        bg="black" // Black background
-        color="white" // White text
-        _hover={{ bg: "gray.700" }} // Slightly lighter black when hovered
-        padding={3}
-        size="lg" // Medium button size
+        bg="black"
+        color="white"
+        _hover={{ bg: "gray.700" }}
+        size="md"
         width="30%"
-        onClick={openTutorial}
+        onClick={handleConnectWallet} // Trigger navigation when button is clicked
       >
         Connect Wallet
       </Button>
