@@ -8,6 +8,7 @@ import { useLoading } from "../contexts/LoadingContext";
 
 const Landing = () => {
   const { setIsLoading } = useLoading();
+
   const openPopup = (): void => {
     const popupWindow = window.open("", "_blank", "width=400,height=400");
 
@@ -23,8 +24,6 @@ const Landing = () => {
 
   const navigate = useNavigate();
   const handleConnectWallet = async () => {
-  
-    // Navigate to the Home screen
     navigate("/home");
   };
 
@@ -39,63 +38,69 @@ const Landing = () => {
     setIsLoading(false);
     navigate("/home");
   };
+
   return (
     <Box
-      bg="white" // Background is all white
-      width={theme.views.smallView.width} // Set the width to the pageView width
-      height={theme.views.smallView.height} // Set the height to the pageView height
+      bg="white"
+      width={theme.views.smallView.width}
+      height={theme.views.smallView.height}
       display="flex"
       flexDirection="column"
-      justifyContent="space-between" // Space between the GIF, text, and button
+      justifyContent="space-between"
       alignItems="center"
       p={4}
     >
       <Image
         src="/images/my-own-words-typing-animation.gif"
         alt="Intro GIF"
-        maxW="70%" // Make sure it scales within the box
-        mb={4} // Add some margin below the GIF
+        maxW="70%"
+        mb={4}
       />
+      <Image src="/images/two-authors.png" alt="two kids" maxW="70%" mb={4} />
 
-      {/* Middle: Explanation Text */}
       <Text fontSize="sm" color="black" textAlign="center" mb={4}>
         Connect your wallet below to start registering your work as Intellectual
         Property.
       </Text>
 
-      {/* Bottom: Connect Wallet Button */}
+      {/* Styled Buttons */}
       <Button
-        bg="black"
+        bg="gray.800" // Dark gray background
         color="white"
-        _hover={{ bg: "gray.700" }}
-        size="md"
-        width="30%"
-        //onClick={handleConnectWallet} // Trigger navigation when button is clicked
+        _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
+        size="sm" // Smaller text size
+        width="40%" // Adjusted button width
+        p={4} // Padding inside the button
+        mb={2} // Margin below the button for spacing
         onClick={openPopup}
       >
         Connect Wallet
       </Button>
+
       <Button
-        bg="black"
+        bg="gray.800" // Dark gray background
         color="white"
-        _hover={{ bg: "gray.700" }}
-        size="md"
-        width="30%"
-        //onClick={handleConnectWallet} // Trigger navigation when button is clicked
+        _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
+        size="sm" // Smaller text size
+        width="40%" // Adjusted button width
+        p={4} // Padding inside the button
+        mb={2} // Margin below the button for spacing
         onClick={goHome}
       >
         Go to Home
       </Button>
+
       <Button
-        bg="black"
+        bg="gray.800" // Dark gray background
         color="white"
-        _hover={{ bg: "gray.700" }}
-        size="md"
-        width="30%"
-        //onClick={handleConnectWallet} // Trigger navigation when button is clicked
+        _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
+        size="sm" // Smaller text size
+        width="40%" // Adjusted button width
+        p={4} // Padding inside the button
+        mb={2} // Margin below the button for spacing
         onClick={openPopup}
       >
-        Open pop-up
+        Open Pop-up
       </Button>
     </Box>
   );

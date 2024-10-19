@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import ClickableCard from "../components/ClickableCard";
 import theme from "../theme";
@@ -22,15 +22,46 @@ const Home: React.FC = () => {
 
   return (
     <Box
+      position="relative" // Needed for positioning the images
       p={6}
       width={theme.views.smallView.width}
       height={theme.views.smallView.height}
       mx="auto"
-      mt={6}
       display="flex"
       flexDirection="column"
+      justifyContent="center" // Center the content vertically
+      alignItems="center" // Center the content horizontally
       gap={4}
     >
+      {/* Top-right Image */}
+      <Image
+        src="/images/saturn-and-stars.png" // Replace with the correct image path
+        alt="Top Right Image"
+        position="absolute"
+        top={0}
+        right={0}
+        width="40px"
+        height="40px"
+        zIndex={0} // Ensures it's behind the content
+      />
+
+      {/* Bottom-left Image */}
+      <Image
+        src="/images/city-scape.png" // Replace with the correct image path
+        alt="Bottom Left Image"
+        position="absolute"
+        bottom={0}
+        left={0}
+        width="40px"
+        height="40px"
+        zIndex={0} // Ensures it's behind the content
+      />
+
+      {/* Big Title at the Top */}
+      <Text fontSize="3xl" fontWeight="bold" mb={8} zIndex={1}>
+        What would you like to do?
+      </Text>
+
       {/* Register Card */}
       <ClickableCard
         cardText="Register"
