@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "My Story Protocol Extension",
+  "version": "1.0",
+  "description": "Browser extension using Story Protocol SDK",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab"
+  ]
+}
