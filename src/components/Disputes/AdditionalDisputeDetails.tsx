@@ -18,7 +18,7 @@ const AdditionalDisputeDetails: React.FC = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      width="80%"
+      width="100%"
       gap={4}
     >
       {/* First IP Asset ID Input */}

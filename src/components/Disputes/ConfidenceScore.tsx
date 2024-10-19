@@ -1,5 +1,7 @@
 import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { Box } from "@chakra-ui/react";
+import theme from "../../theme";
 import "react-circular-progressbar/dist/styles.css";
 
 /*
@@ -85,7 +87,9 @@ const ConfidenceScore: React.FC = () => {
   const percentage = 42; // Hardcoded for now, will be a variable later
 
   return (
-    <div style={{ width: "150px", height: "150px" }}>
+    <Box
+      overflow="hidden"
+    >
       <CircularProgressbar
         value={percentage}
         text={`${percentage}%`}
@@ -96,7 +100,7 @@ const ConfidenceScore: React.FC = () => {
           backgroundColor: "#f8f9fa",
         })}
       />
-    </div>
+    </Box>
   );
 };
 
