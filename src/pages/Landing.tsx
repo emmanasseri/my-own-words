@@ -36,7 +36,7 @@ const Landing = () => {
     <Box
       bg="white"
       width={theme.views.smallView.width}
-      height={theme.views.smallView.height}
+      maxHeight={theme.views.smallView.height}
       display="flex"
       flexDirection="column"
       justifyContent="space-between"
@@ -46,10 +46,10 @@ const Landing = () => {
       <Image
         src="/images/my-own-words-typing-animation.gif"
         alt="Intro GIF"
-        maxW="70%"
+        maxW="50%"
         mb={4}
       />
-      <Image src="/images/two-authors.png" alt="two kids" maxW="70%" mb={4} />
+      <Image src="/images/two-authors.png" alt="two kids" maxW="60%" mb={4} />
 
       <Text fontSize="sm" color="black" textAlign="center" mb={4}>
         Connect your wallet below to start registering your work as Intellectual
