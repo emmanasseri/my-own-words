@@ -6,6 +6,7 @@ import Dispute from "./pages/Dispute";
 import History from "./pages/History";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import LoadingComponent from "./components/LoadingComponent";
+import AIAnalysis from "./pages/AIAnalysis";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/dispute" element={<Dispute />} />
           <Route path="/history" element={<History />} />
+          <Route path="/ai-analysis" element={<AIAnalysis />} />
         </Routes>
       </Router>
     </LoadingProvider>
