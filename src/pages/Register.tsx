@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, Image, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../contexts/LoadingContext"; // Import the loading hook
-import { mintText } from "../components/Register/Mint";
+import { uploadToIPFS, mintText } from "../components/Register/Mint";
 import theme from "../theme";
 
 const Register: React.FC = () => {
@@ -32,7 +32,7 @@ const Register: React.FC = () => {
   const handleMint = () => {
     if (selectedText) {
       setIsLoading(true); // Start loading
-
+      uploadToIPFS(selectedText); 
       // Call the mint function (without hooks inside Mint.tsx)
       mintText(selectedText);
 
