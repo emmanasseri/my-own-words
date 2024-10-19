@@ -1,12 +1,23 @@
 import React from "react";
 import { Box, Text, Button, Image } from "@chakra-ui/react";
+import theme from "./theme";
 
 const LandingPage = () => {
+  const openTutorial = () => {
+    // Open the tutorial page
+    chrome.windows.create({
+      url: 'https://www.google.com',  // Replace this URL with the content you want in the pop-out window
+      type: 'popup',
+      width: 565,
+      height: 993,
+    });
+  };
+
   return (
     <Box
-      bg="white" // Background is all white
-      width="small" // Small window size as defined in the theme
-      height="small.height"
+      bg="white"
+      width={theme.views.smallView.width} // Width and height are 322p
+      height={theme.views.smallView.height} // Width and height are 253px
       display="flex"
       flexDirection="column"
       justifyContent="space-between" // Space between the GIF, text, and button
@@ -34,6 +45,7 @@ const LandingPage = () => {
         padding={3}
         size="lg" // Medium button size
         width="30%"
+        onClick={openTutorial}
       >
         Connect Wallet
       </Button>

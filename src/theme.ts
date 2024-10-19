@@ -9,16 +9,16 @@ const breakpoints = {
 const theme = extendTheme({
   breakpoints,
   // Define custom sizes for the windows
-  sizes: {
-    small: {
+  views: {
+    smallView: {
       width: "322px",
       height: "253px",
     },
-    medium: {
+    expandedView: {
       width: "500px",
       height: "650px",
     },
-    large: {
+    pageView: {
       width: "765px",
       height: "993px", // Same aspect ratio as medium
     },
