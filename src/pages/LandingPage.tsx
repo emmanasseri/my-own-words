@@ -1,7 +1,15 @@
 import React from "react";
 import { Box, Text, Button, Image } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+  const handleConnectWallet = () => {
+    // Logic for connecting wallet can go here
+
+    // Navigate to the Home screen
+    navigate("/home");
+  };
   return (
     <Box
       bg="white" // Background is all white
@@ -28,12 +36,12 @@ const LandingPage = () => {
 
       {/* Bottom: Connect Wallet Button */}
       <Button
-        bg="black" // Black background
-        color="white" // White text
-        _hover={{ bg: "gray.700" }} // Slightly lighter black when hovered
-        padding={3}
-        size="lg" // Medium button size
+        bg="black"
+        color="white"
+        _hover={{ bg: "gray.700" }}
+        size="md"
         width="30%"
+        onClick={handleConnectWallet} // Trigger navigation when button is clicked
       >
         Connect Wallet
       </Button>
