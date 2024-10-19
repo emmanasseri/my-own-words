@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Text, Image } from "@chakra-ui/react";
+import { Box, Text, Image, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import theme from "../theme";
 import InitialDisputeDescription from "../components/Disputes/InitialDisputeDescription";
@@ -10,21 +10,25 @@ const Dispute = () => {
   const navigate = useNavigate();
 
   return (
+    <Flex
+      minWidth={theme.views.smallView.width}
+      maxHeight={theme.views.smallView.height}
+    >
     <Box
       p={4}
-      width={theme.views.expandedView.width}
-      height={theme.views.expandedView.height}
+      //width={theme.views.expandedView.width}
+      //maxHeight={theme.views.expandedView.height}
       mx="auto"
       display="flex"
       flexDirection="column"
       alignItems="center"
-      gap={6}
+      gap={2}
     >
       {/* Image at the top */}
-      <Image src="/images/wizard.gif" alt="Dispute" maxW="70%" mb={4} />
+      <Image src="/images/wizard.gif" alt="Dispute" maxH="50%" maxW="50%" mb={4} />
 
       {/* Title below the image */}
-      <Text fontSize="2xl" fontWeight="bold" mb={4}>
+      <Text fontSize="1xl" fontWeight="bold" mb={4}>
         {step === 1 ? "Describe Your Dispute" : "Enter IP Asset IDs"}
       </Text>
 
@@ -32,6 +36,7 @@ const Dispute = () => {
       {step === 1 && <InitialDisputeDescription onNext={() => setStep(2)} />}
       {step === 2 && <AdditionalDisputeDetails />}
     </Box>
+    </Flex>
   );
 };
 
