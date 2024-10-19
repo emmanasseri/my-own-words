@@ -10,16 +10,7 @@ const Landing = () => {
   const { setIsLoading } = useLoading();
 
   const openPopup = (): void => {
-    const popupWindow = window.open("", "_blank", "width=400,height=400");
-
-    if (popupWindow) {
-      popupWindow.document.write('<div id="tutorial-root"></div>');
-
-      const root = createRoot(
-        popupWindow.document.getElementById("tutorial-root")!
-      );
-      root.render(<Tutorial />);
-    }
+    window.open('/index.html#/tutorial', '_blank', 'width=565,height=793');
   };
 
   const navigate = useNavigate();

@@ -19,8 +19,8 @@ const theme = extendTheme({
       height: "650px",
     },
     pageView: {
-      width: "765px",
-      height: "993px", // Same aspect ratio as medium
+      width: "565px",
+      height: "793px", // Same aspect ratio as medium
     },
   },
   // Define custom fonts or other style configurations
