@@ -26,7 +26,7 @@ const LoadingComponent: React.FC = () => {
           src="/images/car-loading-component.gif"
           alt="Loading..."
           maxW="150px"
-          mb={4} // Margin below the GIF
+          mb={4} 
         />
         <Text color="black" fontSize="lg">
           Loading...

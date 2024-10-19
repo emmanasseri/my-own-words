@@ -58,13 +58,13 @@ const Home: React.FC = () => {
       />
 
       {/* Big Title at the Top */}
-      <Text fontSize="3xl" fontWeight="bold" mb={8} zIndex={1}>
+      <Text fontSize="xl" fontWeight="bold" mb={4} zIndex={1}>
         What would you like to do?
       </Text>
 
       {/* Register Card */}
       <ClickableCard
-        cardText="Register"
+        cardText="Register text as IP"
         infoText="Use this option to register your details."
         onClickAction={openRegister} // Action triggered on card click
       />
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
 
       {/* Dispute Card */}
       <ClickableCard
-        cardText="Dispute"
+        cardText="Raise a Dispute"
         infoText="Raise a dispute here."
         onClickAction={openDispute} // Action triggered on card click
       />
