@@ -3,7 +3,7 @@
   "version": "1.0",
   "description": "Browser extension using Story Protocol SDK",
   "action": {
-    "default_popup": "src/App.tsx",
+    "default_popup": "public/index.html",
     "default_icon": "src/logo.svg"
   },
   "permissions": [
