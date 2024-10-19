@@ -10,6 +10,7 @@
   "permissions": [
     "storage",
     "activeTab",
+    "https://api.pinata.cloud/*",
     "scripting"
   ],
   "web_accessible_resources": [

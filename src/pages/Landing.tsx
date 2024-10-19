@@ -25,7 +25,7 @@ const Landing = () => {
     setIsLoading(true);
 
     // Simulate a 5-second delay for the wallet connection process
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Stop the loading animation
     setIsLoading(false);

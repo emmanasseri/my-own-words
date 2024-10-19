@@ -23,9 +23,9 @@ const Home: React.FC = () => {
   return (
     <Box
       position="relative" // Needed for positioning the images
-      p={6}
-      width={theme.views.smallView.width}
-      height={theme.views.smallView.height}
+      p={4}
+      width={theme.views.expandedView.width}
+      height={theme.views.expandedView.height}
       mx="auto"
       display="flex"
       flexDirection="column"
@@ -38,10 +38,11 @@ const Home: React.FC = () => {
         src="/images/saturn-and-stars.png" // Replace with the correct image path
         alt="Top Right Image"
         position="absolute"
-        top={0}
-        right={0}
-        width="40px"
-        height="40px"
+        top={3}
+        right={3}
+        width="120px"
+        height="120px"
+        margin={1}
         zIndex={0} // Ensures it's behind the content
       />
 
@@ -50,10 +51,11 @@ const Home: React.FC = () => {
         src="/images/city-scape.png" // Replace with the correct image path
         alt="Bottom Left Image"
         position="absolute"
-        bottom={0}
-        left={0}
-        width="40px"
-        height="40px"
+        bottom={3}
+        left={3}
+        width="120px"
+        height="120px"
+        margin={1}
         zIndex={0} // Ensures it's behind the content
       />
 
