@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Box, Input, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom"; // Use navigate to go to the next page
 
-const AdditionalDisputeDetails: React.FC = () => {
+interface InitialDisputeDescriptionProps {
+  onNext: () => void; // Callback to switch to the next step
+}
+
+const AdditionalDisputeDetails: React.FC<InitialDisputeDescriptionProps> = ({onNext}) => {
   const [ipAssetId1, setIpAssetId1] = useState("");
   const [ipAssetId2, setIpAssetId2] = useState("");
   const navigate = useNavigate(); // Initialize the navigate hook
 
   const isNextEnabled = ipAssetId1 && ipAssetId2; // Enable the button if both inputs are filled
-
-  const handleNext = () => {
-    navigate("/ai-analysis"); // Navigate to the AIAnalysisPage when Next is clicked
-  };
 
   return (
     <Box
@@ -46,7 +46,7 @@ const AdditionalDisputeDetails: React.FC = () => {
         _hover={isNextEnabled ? { bg: "blue.600" } : {}}
         disabled={!isNextEnabled} // Button is disabled when inputs are empty
         width="100%"
-        onClick={handleNext} // Navigate to the AIAnalysisPage
+        onClick={onNext} // Navigate
       >
         Next
       </Button>

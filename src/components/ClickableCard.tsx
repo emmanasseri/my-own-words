@@ -49,7 +49,7 @@ const ClickableCard: React.FC<ClickableCardProps> = ({
       onClick={onClickAction} // Trigger action when card is clicked
     >
       {/* Text in the middle of the card */}
-      <Text fontSize="lg" fontWeight="bold" color="black">
+      <Text fontSize="md" fontWeight="bold" color="black">
         {cardText}
       </Text>
 

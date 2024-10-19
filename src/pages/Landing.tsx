@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, Button, Image } from "@chakra-ui/react";
+import { Box, Text, Button, Image, VStack, HStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import theme from "../theme";
 import { createRoot } from "react-dom/client";
@@ -43,25 +43,55 @@ const Landing = () => {
       alignItems="center"
       p={4}
     >
-      <Image
-        src="/images/my-own-words-typing-animation.gif"
-        alt="Intro GIF"
-        maxW="50%"
-        mb={4}
-      />
-      <Image src="/images/two-authors.png" alt="two kids" maxW="60%" mb={4} />
+      <Image src="/images/my-own-words-typing-animation.gif" alt="Intro GIF" maxW="50%" />
+      <Image src="/images/two-authors.png" alt="two kids" maxW="60%" mt={-10}/>
 
       <Text fontSize="sm" color="black" textAlign="center" mb={4}>
         Connect your wallet below to start registering your work as Intellectual
         Property.
       </Text>
 
-      {/* <Wallet /> */}
+      <VStack
+        width="100%"
+        alignItems="center"
+        justifyContent="center"
+      >
+        {/* Styled Buttons */}
+        <HStack
+          width="100%"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {!walletAddress && (
+            <Button
+              bg="gray.800" // Dark gray background
+              color="white"
+              _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
+              size="sm" // Smaller text size
+              width="40%" // Adjusted button width
+              p={4} // Padding inside the button
+              mb={2} // Margin below the button for spacing
+              onClick={connectWallet}
+              //onClick={handleConnectWallet}
+            >
+              Connect Wallet
+            </Button>
+          )}
 
-      <button id="connectWalletButton">Connect Wallet</button>
+          <Button
+            bg="gray.800" // Dark gray background
+            color="white"
+            _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
+            size="sm" // Smaller text size
+            width="40%" // Adjusted button width
+            p={4} // Padding inside the button
+            mb={2} // Margin below the button for spacing
+            onClick={goHome}
+          >
+            Go to Home
+          </Button>
+        </HStack>
 
-      {/* Styled Buttons */}
-      {!walletAddress && (
         <Button
           bg="gray.800" // Dark gray background
           color="white"
@@ -70,38 +100,11 @@ const Landing = () => {
           width="40%" // Adjusted button width
           p={4} // Padding inside the button
           mb={2} // Margin below the button for spacing
-          onClick={connectWallet}
-          //onClick={handleConnectWallet}
+          onClick={openPopup}
         >
-          Connect Wallet
+          Open Tutorial
         </Button>
-      )}
-
-      <Button
-        bg="gray.800" // Dark gray background
-        color="white"
-        _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
-        size="sm" // Smaller text size
-        width="40%" // Adjusted button width
-        p={4} // Padding inside the button
-        mb={2} // Margin below the button for spacing
-        onClick={goHome}
-      >
-        Go to Home
-      </Button>
-
-      <Button
-        bg="gray.800" // Dark gray background
-        color="white"
-        _hover={{ bg: "gray.600" }} // Slightly lighter gray on hover
-        size="sm" // Smaller text size
-        width="40%" // Adjusted button width
-        p={4} // Padding inside the button
-        mb={2} // Margin below the button for spacing
-        onClick={openPopup}
-      >
-        Open Pop-up
-      </Button>
+      </VStack>
     </Box>
   );
 };

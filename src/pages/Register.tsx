@@ -11,6 +11,29 @@ const Register: React.FC = () => {
   const { setIsLoading } = useLoading(); // Hook to trigger loading
   const navigate = useNavigate(); // Hook for navigation
 
+
+  const saveBtn = document.getElementById("save-btn");
+  if (saveBtn) {
+    saveBtn.onclick = async () => {
+      const [tab] = await chrome.tabs.query({active: true, currentWindow: true});
+      let result = "";
+      try {
+        [{result = ""}] = await chrome.scripting.executeScript({
+          target: {tabId: tab.id!},
+          func: () => {
+            const selection = getSelection();
+            return selection ? selection.toString() : "";
+          },
+        });
+      } catch (e) {
+        return; // ignoring an unsupported page like chrome://extensions
+      }
+      document.body.append('Selection: ' + result);
+    };
+  }
+
+
+
   // Function to handle text selection in the browser
   const handleTextSelection = () => {
     const selectedText = window.getSelection()?.toString() || "";
@@ -67,6 +90,8 @@ const Register: React.FC = () => {
         maxW="100%"
         mb={4}
       />
+      <button id="save-btn">SAVE SELECTION</button>
+      <script src="index.js"></script>
 
       {/* Block of text to highlight */}
       <Text fontSize="md" textAlign="left" width="100%">
