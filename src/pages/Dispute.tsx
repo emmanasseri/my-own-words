@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Text, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import theme from "../theme";
 import InitialDisputeDescription from "../components/Disputes/InitialDisputeDescription";
@@ -15,13 +15,11 @@ const Dispute = () => {
       p={4}
       width={theme.views.expandedView.width}
       height={theme.views.expandedView.height}
-      maxHeight={theme.views.expandedView.height}
-      overflow="hidden"
       mx="auto"
       display="flex"
       flexDirection="column"
       alignItems="center"
-      gap={2}
+      gap={6}
     >
       {/* Image at the top */}
       {step === 1 && <Image src="/images/wizard.gif" alt="Dispute" maxH="30%" maxW="85%" mb={1} />}

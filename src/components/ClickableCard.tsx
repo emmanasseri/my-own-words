@@ -31,7 +31,7 @@ const ClickableCard: React.FC<ClickableCardProps> = ({
   return (
     <Box
       bg="gray.100" // Super light gray background
-      width="80%"
+      width="100%"
       p={4}
       border="2px solid black" // Black outlined border
       boxShadow="0px 4px 10px rgba(173, 216, 230, 0.8)" // Light blue shadow (light blue: rgba(173, 216, 230))
