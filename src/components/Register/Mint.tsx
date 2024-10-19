@@ -1,18 +1,20 @@
 import axios from "axios";
+import { useState } from "react";
+import { useWallet } from "../../contexts/WalletContext";
+import { mintNFT } from "../../services/PolygonService";
 
 const PINATA_JWT = process.env.REACT_APP_PINATA_JWT;
 
+// Function to upload the text to IPFS
 export const uploadToIPFS = async (text: string): Promise<string | null> => {
   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
 
-  const data = {
-    text: text, // The text you're uploading
-  };
+  const data = { text };
 
   try {
     const response = await axios.post(url, data, {
       headers: {
-        Authorization: process.env.REACT_APP_PINATA_JWT, // Ensure the JWT is correctly passed
+        Authorization: `Bearer ${PINATA_JWT}`, // Ensure the JWT is passed correctly
         "Content-Type": "application/json",
       },
     });
@@ -29,9 +31,4 @@ export const uploadToIPFS = async (text: string): Promise<string | null> => {
     console.error("Error uploading to IPFS:", error);
     return null;
   }
-};
-
-export const mintText = (text: string) => {
-  console.log("Minting the following text as IP:", text);
-  // You can keep other minting logic here
 };

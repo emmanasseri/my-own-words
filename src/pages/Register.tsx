@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, Image, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../contexts/LoadingContext"; // Import the loading hook
-import { uploadToIPFS, mintText } from "../components/Register/Mint";
+import { uploadToIPFS } from "../components/Register/Mint";
+import { useWallet } from "../contexts/WalletContext"; // Use wallet context for minting
 import theme from "../theme";
 
 const Register: React.FC = () => {
   const [selectedText, setSelectedText] = useState(""); // State to track selected text
   const [buttonEnabled, setButtonEnabled] = useState(false); // State to track button enable/disable
   const { setIsLoading } = useLoading(); // Hook to trigger loading
+  const { mintNFT } = useWallet(); // Get the mintNFT function from WalletContext
   const navigate = useNavigate(); // Hook for navigation
 
   // Function to handle text selection in the browser
@@ -28,19 +30,28 @@ const Register: React.FC = () => {
     };
   }, []);
 
-  // Function to handle the minting process when button is clicked
-  const handleMint = () => {
+  const handleMint = async () => {
     if (selectedText) {
       setIsLoading(true); // Start loading
-      uploadToIPFS(selectedText); 
-      // Call the mint function (without hooks inside Mint.tsx)
-      mintText(selectedText);
 
-      // Simulate a 1-second delay, then navigate to home
-      setTimeout(() => {
+      try {
+        // Step 1: Upload the selected text to IPFS
+        const contentID = await uploadToIPFS(selectedText);
+
+        if (contentID) {
+          console.log("IPFS content ID:", contentID);
+
+          const userWalletAddress = "0xYourRecipientWalletAddress"; // Replace with recipient wallet address
+          await mintNFT(userWalletAddress, contentID, "hardcoded"); // Pass four arguments
+
+          console.log(`NFT minted with content ID: ${contentID}`);
+        }
+      } catch (error) {
+        console.error("Error minting NFT or uploading to IPFS:", error);
+      } finally {
         setIsLoading(false); // Stop loading
         navigate("/home"); // Navigate to home page
-      }, 1000);
+      }
     }
   };
 
