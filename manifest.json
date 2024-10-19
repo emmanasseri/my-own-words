@@ -1,14 +1,14 @@
 {
-  "manifest_version": 3,
-  "name": "My Story Protocol Extension",
+  "name": "my-own-words",
   "version": "1.0",
   "description": "Browser extension using Story Protocol SDK",
   "action": {
-    "default_popup": "index.html",
-    "default_icon": "icon.png"
+    "default_popup": "public/index.html",
+    "default_icon": "src/logo.svg"
   },
   "permissions": [
     "storage",
     "activeTab"
-  ]
+  ],
+  "manifest_version": 3
 }
