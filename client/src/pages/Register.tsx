@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Image, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useLoading } from "../contexts/LoadingContext"; // Import the loading hook
-import { uploadToIPFS } from "../components/Register/Mint";
+import { useLoading } from "../contexts/LoadingContext";
 //import { useWallet } from "../contexts/WalletContext"; // Use wallet context for minting
 import theme from "../theme";
+import axios from "axios";
 
 const Register: React.FC = () => {
   const [selectedText, setSelectedText] = useState(""); // State to track selected text
@@ -12,6 +12,8 @@ const Register: React.FC = () => {
   const { setIsLoading } = useLoading(); // Hook to trigger loading
   // const { mintNFT } = useWallet(); // Get the mintNFT function from WalletContext
   const navigate = useNavigate(); // Hook for navigation
+
+  const PINATA_JWT = process.env.REACT_APP_PINATA_JWT;
 
   // Function to handle text selection in the browser
   const handleTextSelection = () => {
@@ -30,46 +32,116 @@ const Register: React.FC = () => {
     };
   }, []);
 
-  const handleMint = async () => {
-    if (selectedText) {
-      setIsLoading(true); // Start loading
+  // const handleMint = async () => {
+  //   if (selectedText) {
+  //     setIsLoading(true); // Start loading
 
-      try {
-        // Step 1: Upload the selected text to IPFS
-        const contentID = await uploadToIPFS(selectedText);
+  //     try {
+  //       // Step 1: Upload the selected text to IPFS
+  //       const contentID = await uploadToIPFS(selectedText);
 
-        if (contentID) {
-          console.log("IPFS content ID:", contentID);
+  //       if (contentID) {
+  //         console.log("IPFS content ID:", contentID);
 
-          // Step 2: Send a request to your server's minting endpoint
-          const response = await fetch("http://localhost:3000/api/mint", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userWalletAddress: process.env.REACT_APP_USER_PUBLIC_KEY, // Replace with recipient wallet address
-              metadataURI: contentID, // Use the contentID from IPFS
-              tokenName: "YourTokenName", // Hardcode or dynamically generate
-              tokenLabel: "YourTokenLabel", // Hardcode or dynamically generate
-            }),
-          });
+  //         // Step 2: Send a request to your server's minting endpoint
+  //         const response = await fetch("http://localhost:3000/api/mint", {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           body: JSON.stringify({
+  //             userWalletAddress: process.env.REACT_APP_USER_PUBLIC_KEY, // Replace with recipient wallet address
+  //             metadataURI: contentID, // Use the contentID from IPFS
+  //             tokenName: "YourTokenName", // Hardcode or dynamically generate
+  //             tokenLabel: "YourTokenLabel", // Hardcode or dynamically generate
+  //           }),
+  //         });
 
-          const result = await response.json();
-          if (result.success) {
-            console.log(
-              `NFT minted successfully with transaction hash: ${result.transactionHash}`
-            );
-          } else {
-            console.error("Minting failed:", result.error);
-          }
-        }
-      } catch (error) {
-        console.error("Error minting NFT or uploading to IPFS:", error);
-      } finally {
-        setIsLoading(false); // Stop loading
-        navigate("/home"); // Navigate to home page
+  //         const result = await response.json();
+  //         if (result.success) {
+  //           console.log(
+  //             `NFT minted successfully with transaction hash: ${result.transactionHash}`
+  //           );
+  //         } else {
+  //           console.error("Minting failed:", result.error);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error minting NFT or uploading to IPFS:", error);
+  //     } finally {
+  //       setIsLoading(false); // Stop loading
+  //       navigate("/home"); // Navigate to home page
+  //     }
+  //   }
+  //};
+
+  const uploadAndMint = async () => {
+    uploadToIPFS(selectedText);
+  };
+  const uploadToIPFS = async (text: string): Promise<string | null> => {
+    const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+    const data = { text };
+
+    try {
+      // Start loading
+      setIsLoading(true);
+
+      const response = await axios.post(url, data, {
+        headers: {
+          Authorization: `Bearer ${PINATA_JWT}`, // Ensure the JWT is passed correctly
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        const ipfsHash = response.data.IpfsHash;
+        console.log("Uploaded to IPFS: ", ipfsHash);
+
+        // Call the minting function after uploading to IPFS
+        await mintOnServer(ipfsHash);
+
+        // Stop loading
+        setIsLoading(false);
+
+        return ipfsHash; // Return the content ID (CID)
+      } else {
+        console.error("Failed to upload to IPFS: ", response.status);
+        setIsLoading(false); // Stop loading on error
+        return null;
       }
+    } catch (error) {
+      console.error("Error uploading to IPFS:", error);
+      setIsLoading(false); // Stop loading on error
+      return null;
+    }
+  };
+
+  const mintOnServer = async (ipfsHash: string) => {
+    try {
+      // Start loading
+      setIsLoading(true);
+
+      const response = await fetch("http://localhost:3000/api/mint", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userWalletAddress: process.env.REACT_APP_USER_PUBLIC_KEY,
+          metadataURI: ipfsHash,
+          tokenName: "hardcoded",
+          tokenLabel: "hardcoded",
+        }),
+      });
+
+      const result = await response.json();
+      console.log("Minting result:", result);
+
+      // Stop loading after the operation is complete
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error minting NFT on server:", error);
+      setIsLoading(false); // Stop loading on error
     }
   };
 
@@ -114,7 +186,7 @@ const Register: React.FC = () => {
         _hover={buttonEnabled ? { bg: "blue.600" } : {}}
         disabled={!buttonEnabled} // Disable button if no text is selected
         width="100%"
-        onClick={handleMint}
+        onClick={uploadAndMint}
       >
         Mint Selected Text
       </Button>
