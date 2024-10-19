@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Text,
@@ -18,11 +18,13 @@ import { InfoIcon } from "@chakra-ui/icons";
 interface ClickableCardProps {
   cardText: string;
   infoText: string;
+  onClickAction?: () => void; // Optional action to be triggered when the card is clicked
 }
 
 const ClickableCard: React.FC<ClickableCardProps> = ({
   cardText,
   infoText,
+  onClickAction,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -40,6 +42,7 @@ const ClickableCard: React.FC<ClickableCardProps> = ({
       justifyContent="space-between"
       alignItems="center"
       mb={4}
+      onClick={onClickAction} // Trigger action when card is clicked
     >
       {/* Text in the middle of the card */}
       <Text fontSize="lg" fontWeight="bold">
@@ -55,7 +58,10 @@ const ClickableCard: React.FC<ClickableCardProps> = ({
         position="absolute"
         top={2}
         right={2}
-        onClick={onOpen}
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent triggering onClickAction when info button is clicked
+          onOpen();
+        }}
       />
 
       {/* Modal for info */}

@@ -14,7 +14,7 @@ const LoadingComponent: React.FC = () => {
       left="0"
       width="100vw"
       height="100vh"
-      bg="rgba(0, 0, 0, 0.5)" // Faded background
+      bg="rgba(255, 255, 255, 0.7)"
       zIndex="1000"
       display="flex"
       justifyContent="center"
@@ -28,8 +28,8 @@ const LoadingComponent: React.FC = () => {
           maxW="150px"
           mb={4} // Margin below the GIF
         />
-        <Text color="white" fontSize="lg">
-          Loading, please wait...
+        <Text color="black" fontSize="lg">
+          Loading...
         </Text>
       </Flex>
     </Box>
