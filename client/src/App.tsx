@@ -6,6 +6,7 @@ import Dispute from "./pages/Dispute";
 import History from "./pages/History";
 import Tutorial from "./pages/Tutorial";
 import { LoadingProvider } from "./contexts/LoadingContext";
+//import { Web3Provider } from "./contexts/Web3Context";
 import LoadingComponent from "./components/LoadingComponent";
 import AIAnalysis from "./pages/AIAnalysis";
 import Register from "./pages/Register";

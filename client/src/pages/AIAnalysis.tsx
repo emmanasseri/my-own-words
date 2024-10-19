@@ -19,7 +19,6 @@ const AIAnalysis: React.FC = () => {
 
   return (
     <Box
-      p={6}
       width={theme.views.expandedView.width}
       height={theme.views.expandedView.height}
       mx="auto"
@@ -37,7 +36,7 @@ const AIAnalysis: React.FC = () => {
       />
 
       {/* Circular Progress Bar */}
-      <Box width="170px" height="170px">
+      <Box width="150px" height="150px">
         <ConfidenceScore />
       </Box>
 
