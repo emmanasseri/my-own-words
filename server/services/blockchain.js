@@ -7,10 +7,10 @@ const { JsonRpcProvider } = require("ethers");
 
 // Initialize provider using the RPC URL from environment variables
 //const provider = new ethers.JsonRpcProvider(process.env.STORY_RPC_URL);
-const provider = new ethers.JsonRpcProvider({
-  url: process.env.POLYGON_RPC_PROVIDER_URL,
-  chainId: 80002,
-});
+const provider = new ethers.JsonRpcProvider(
+  process.env.POLYGON_RPC_PROVIDER_URL,
+  80002
+);
 
 provider.getNetwork().then((network) => {
   console.log("Connected to network:", network.name); // Should be "amoy"
