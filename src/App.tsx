@@ -8,6 +8,7 @@ import Tutorial from "./pages/Tutorial";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import LoadingComponent from "./components/LoadingComponent";
 import AIAnalysis from "./pages/AIAnalysis";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
           <Route path="/dispute" element={<Dispute />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/history" element={<History />} />
           <Route path="/ai-analysis" element={<AIAnalysis />} />
           <Route path="/tutorial" element={<Tutorial />} />
