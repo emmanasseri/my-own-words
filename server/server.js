@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const mintRoutes = require("./routes/mint"); // Import mint routes
 //const registerRoutes = require("./routes/register"); // Import register routes
+const mintAndRegisterIPRoute = require("./routes/mintAndRegisterIP");
 
 // Load environment variables from .env file
 dotenv.config();

@@ -56,6 +56,7 @@ const RegisterParentPage: React.FC = () => {
           ipid={NFTAddress || "0xBypassAddress"}
           rawText={rawText || "Bypassed text"}
           onSubmit={handleLicenseSubmit}
+          onMintSuccess={handleMintSuccess}
         />
       ) : (
         <DefineRoyalties />

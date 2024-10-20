@@ -35,79 +35,75 @@ const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
     };
   }, []);
 
-  const uploadAndMint = async () => {
-    uploadToIPFS(selectedText);
-  };
+  // const uploadToIPFS = async (text: string): Promise<string | null> => {
+  //   const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+  //   const data = { text };
 
-  const uploadToIPFS = async (text: string): Promise<string | null> => {
-    const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
-    const data = { text };
+  //   try {
+  //     // Start loading
+  //     setIsLoading(true);
 
-    try {
-      // Start loading
-      setIsLoading(true);
+  //     const response = await axios.post(url, data, {
+  //       headers: {
+  //         Authorization: `Bearer ${PINATA_JWT}`, // Ensure the JWT is passed correctly
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
 
-      const response = await axios.post(url, data, {
-        headers: {
-          Authorization: `Bearer ${PINATA_JWT}`, // Ensure the JWT is passed correctly
-          "Content-Type": "application/json",
-        },
-      });
+  //     if (response.status === 200) {
+  //       const ipfsHash = response.data.IpfsHash;
+  //       console.log("Uploaded to IPFS: ", ipfsHash);
 
-      if (response.status === 200) {
-        const ipfsHash = response.data.IpfsHash;
-        console.log("Uploaded to IPFS: ", ipfsHash);
+  //       // Call the minting function after uploading to IPFS
+  //       await mintOnServer(ipfsHash);
 
-        // Call the minting function after uploading to IPFS
-        await mintOnServer(ipfsHash);
+  //       // Stop loading
+  //       setIsLoading(false);
 
-        // Stop loading
-        setIsLoading(false);
+  //       return ipfsHash; // Return the content ID (CID)
+  //     } else {
+  //       console.error("Failed to upload to IPFS: ", response.status);
+  //       setIsLoading(false); // Stop loading on error
+  //       return null;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error uploading to IPFS:", error);
+  //     setIsLoading(false); // Stop loading on error
+  //     return null;
+  //   }
+  // };
 
-        return ipfsHash; // Return the content ID (CID)
-      } else {
-        console.error("Failed to upload to IPFS: ", response.status);
-        setIsLoading(false); // Stop loading on error
-        return null;
-      }
-    } catch (error) {
-      console.error("Error uploading to IPFS:", error);
-      setIsLoading(false); // Stop loading on error
-      return null;
-    }
-  };
+  // const mintOnServer = async (ipfsHash: string) => {
+  //   try {
+  //     // Start loading
+  //     setIsLoading(true);
 
-  const mintOnServer = async (ipfsHash: string) => {
-    try {
-      // Start loading
-      setIsLoading(true);
+  //     const response = await fetch("http://localhost:3000/api/mint", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         userWalletAddress: process.env.REACT_APP_USER_PUBLIC_KEY,
+  //         metadataURI: ipfsHash,
+  //         tokenName: "hardcoded",
+  //         tokenLabel: "hardcoded",
+  //       }),
+  //     });
 
-      const response = await fetch("http://localhost:3000/api/mint", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userWalletAddress: process.env.REACT_APP_USER_PUBLIC_KEY,
-          metadataURI: ipfsHash,
-          tokenName: "hardcoded",
-          tokenLabel: "hardcoded",
-        }),
-      });
+  //     const result = await response.json();
+  //     console.log("Minting result:", result);
 
-      const result = await response.json();
-      console.log("Minting result:", result);
+  //     // Stop loading after the operation is complete
+  //     setIsLoading(false);
 
-      // Stop loading after the operation is complete
-      setIsLoading(false);
-
-      // On successful minting, call onMintSuccess
-      onMintSuccess(ipfsHash, "0xYourNFTAddress", selectedText); // Simulating NFT Address for now
-    } catch (error) {
-      console.error("Error minting NFT on server:", error);
-      setIsLoading(false); // Stop loading on error
-    }
-  };
+  //     // On successful minting, call onMintSuccess
+  //     onMintSuccess(ipfsHash, "0xYourNFTAddress", selectedText); // Simulating NFT Address for now
+  //   } catch (error) {
+  //     console.error("Error minting NFT on server:", error);
+  //     setIsLoading(false); // Stop loading on error
+  //   }
+  // };
 
   return (
     <Box
@@ -134,7 +130,7 @@ const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
         <ClickableCard
           cardText="Register this text as IP"
           infoText="Register this text as IP"
-          onClickAction={uploadAndMint}
+          onClickAction={onBypass}
         />
       </Box>
 
