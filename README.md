@@ -1,49 +1,28 @@
-# Getting Started with Create React App
+# My Own Words: a browser extension organizing the provenance and nuance of ideas on the Story Network.  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Users can create written work in the editor of their choice, highlight it, attach terms of fair use and register a snapshot of its provenance and permissions. There is AI support natively integrated into the project for users unfamiliar Story or IP to still have understanding, agency, and support as they navigate registering new works. 
 
-## Available Scripts
+We see this project being especially useful for two audiences: researchers and academics who very much value the provenance of ideas, creators and artists across industries. 
 
-In the project directory, you can run:
+## How to Use
 
-### `npm start`
+Our project has a server and client side, so in order to run:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Run `cd server`. From there, type the commands `yarn` and `node server.js` to install dependencies and start the backend.
+2. Next, head to the client side with `cd ../client` and run `yarn` to install dependencies.
+3. Then, run `yarn build` to generate a bundled copy named "build" of the software to be compatible with modern browsers supporting extensions.
+4. Head over to the your browser's extension settings, enable developer mode, and find the "load unpacked option", click it.
+5. Finally, take open the "build" folder. This is allow your browser to install the extension.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### How it's Made
 
-### `npm test`
+This project uses Pinata and IPFS for storage of text files, Polygon for tokenization of these files' content IDs, and Story SDK for registering these NFTs onchain with licensing terms.  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+We used React, Typescript, ChakraUI, and Emma's original Procreate animations for the front end. For the backend, we used an express server, cors for browser extension to server communication. We also used the ChatGPT API to create and fine-tune our AI arbiter and AI also to auto-suggest recommendations for descriptions, licensing terms, etc. for a simple introduction to IP. 
 
-### `npm run build`
+![image](https://github.com/user-attachments/assets/39e11bea-0832-435c-bb8a-6669ac3975d2)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+![image](https://github.com/user-attachments/assets/08956a34-7839-4987-9657-01bfb3ed7ef9)
 
 
 ### 
