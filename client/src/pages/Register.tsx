@@ -5,6 +5,8 @@ import { useLoading } from "../contexts/LoadingContext";
 //import { useWallet } from "../contexts/WalletContext"; // Use wallet context for minting
 import theme from "../theme";
 import axios from "axios";
+import HighlightedText from "../components/Register/HighlightedText";
+import ClickableCard from "../components/ClickableCard";
 
 const Register: React.FC = () => {
   const [selectedText, setSelectedText] = useState(""); // State to track selected text
@@ -112,41 +114,30 @@ const Register: React.FC = () => {
       flexDirection="column"
       alignItems="center"
       gap={6}
+      pb={4}
     >
       {/* Heading */}
       <Text fontSize="2xl" fontWeight="bold">
         Highlight text to register it as IP
       </Text>
+        
+        {/* Popup for highlighted text */}
+      <HighlightedText />
+      {/* Text to explain the process */}
 
       {/* Image */}
       <Image
-        src="/images/register-ip.png" // Replace with the actual image path
+        src="/images/cloud.png" // Replace with the actual image path
         alt="Register IP"
-        maxW="100%"
-        mb={4}
+        width="60px"
+        maxW="70%"
+        mb={-4}
       />
 
-      {/* Block of text to highlight */}
-      <Text fontSize="md" textAlign="left" width="100%">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-        odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla
-        quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent
-        mauris. Fusce nec tellus sed augue semper porta. Mauris massa.
-        Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos.
-      </Text>
-
       {/* Mint button (grayed out until text is selected) */}
-      <Button
-        bg={buttonEnabled ? "blue.500" : "gray.400"}
-        color="white"
-        _hover={buttonEnabled ? { bg: "blue.600" } : {}}
-        disabled={!buttonEnabled} // Disable button if no text is selected
-        width="100%"
-        onClick={uploadAndMint}
-      >
-        Mint Selected Text
-      </Button>
+      <Box m={2} width="100%">
+      <ClickableCard cardText="Register this text as IP" infoText="Register this text as IP" onClickAction={uploadAndMint} />
+      </Box>
     </Box>
   );
 };

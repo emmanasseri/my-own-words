@@ -2382,6 +2382,11 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.7.3.tgz#3e51a17e291d01d17d3fc61422015a933af7a08f"
   integrity sha512-+68kP9yzs4LMp7VNh8gdzMSPZFL44MLGqiHWvttYJe+6qnuVr4Ek9wSBQoveqY/r+LwjCcU29kNVkidwim+kYA==
 
+"@types/prismjs@^1.26.0":
+  version "1.26.4"
+  resolved "https://registry.yarnpkg.com/@types/prismjs/-/prismjs-1.26.4.tgz#1a9e1074619ce1d7322669e5b46fbe823925103a"
+  integrity sha512-rlAnzkW2sZOjbqZ743IHUhFcvzaGbqijwOu8QZnZCjfQzBqFE3s4lOTJEsxikImav9uzz/42I+O7YUs1mWgMlg==
+
 "@types/prop-types@*":
   version "15.7.13"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.13.tgz#2af91918ee12d9d32914feb13f5326658461b451"
@@ -3585,6 +3590,11 @@ cliui@^7.0.2:
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
+
+clsx@^2.0.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
+  integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
 
 co@^4.6.0:
   version "4.6.0"
@@ -8181,6 +8191,14 @@ pretty-format@^29.0.0, pretty-format@^29.7.0:
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
 
+prism-react-renderer@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-2.4.0.tgz#c5ea692029c2f8b3fd04f63662d04ffd4eaf10a0"
+  integrity sha512-327BsVCD/unU4CNLZTWVHyUHKnsqcvj2qbPlQ8MiBE2eq2rgctjigPA1Gp9HLF83kZ20zNN6jgizHJeEsyFYOw==
+  dependencies:
+    "@types/prismjs" "^1.26.0"
+    clsx "^2.0.0"
+
 process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
@@ -9961,10 +9979,22 @@ webauthn-p256@0.0.10:
     "@noble/curves" "^1.4.0"
     "@noble/hashes" "^1.4.0"
 
+webextension-polyfill-ts@^0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/webextension-polyfill-ts/-/webextension-polyfill-ts-0.26.0.tgz#80b7063ddaf99abaa1ca73aad0cec09f306612d3"
+  integrity sha512-XEFL+aYVEsm/d4RajVwP75g56c/w2aSHnPwgtUv8/nCzbLNSzRQIix6aj1xqFkA5yr7OIDkk3OD/QTnPp8ThYA==
+  dependencies:
+    webextension-polyfill "^0.8.0"
+
 webextension-polyfill@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/webextension-polyfill/-/webextension-polyfill-0.12.0.tgz#f62c57d2cd42524e9fbdcee494c034cae34a3d69"
   integrity sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q==
+
+webextension-polyfill@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/webextension-polyfill/-/webextension-polyfill-0.8.0.tgz#f80e9f4b7f81820c420abd6ffbebfa838c60e041"
+  integrity sha512-a19+DzlT6Kp9/UI+mF9XQopeZ+n2ussjhxHJ4/pmIGge9ijCDz7Gn93mNnjpZAk95T4Tae8iHZ6sSf869txqiQ==
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
