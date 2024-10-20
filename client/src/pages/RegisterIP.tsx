@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, Image, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../contexts/LoadingContext";
-//import { useWallet } from "../contexts/WalletContext"; // Use wallet context for minting
 import theme from "../theme";
 import axios from "axios";
 import HighlightedText from "../components/Register/HighlightedText";
 import ClickableCard from "../components/ClickableCard";
 
-const Register: React.FC = () => {
+interface RegisterIPProps {
+  onMintSuccess: (ipfsHash: string, nftAddress: string, text: string) => void;
+  onBypass: () => void; // Add onBypass prop to handle bypass logic
+}
+
+const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
   const [selectedText, setSelectedText] = useState(""); // State to track selected text
   const [buttonEnabled, setButtonEnabled] = useState(false); // State to track button enable/disable
   const { setIsLoading } = useLoading(); // Hook to trigger loading
-  // const { mintNFT } = useWallet(); // Get the mintNFT function from WalletContext
-  const navigate = useNavigate(); // Hook for navigation
-
   const PINATA_JWT = process.env.REACT_APP_PINATA_JWT;
 
   // Function to handle text selection in the browser
@@ -37,6 +38,7 @@ const Register: React.FC = () => {
   const uploadAndMint = async () => {
     uploadToIPFS(selectedText);
   };
+
   const uploadToIPFS = async (text: string): Promise<string | null> => {
     const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
     const data = { text };
@@ -98,6 +100,9 @@ const Register: React.FC = () => {
 
       // Stop loading after the operation is complete
       setIsLoading(false);
+
+      // On successful minting, call onMintSuccess
+      onMintSuccess(ipfsHash, "0xYourNFTAddress", selectedText); // Simulating NFT Address for now
     } catch (error) {
       console.error("Error minting NFT on server:", error);
       setIsLoading(false); // Stop loading on error
@@ -120,26 +125,25 @@ const Register: React.FC = () => {
       <Text fontSize="2xl" fontWeight="bold">
         Highlight text to register it as IP
       </Text>
-        
-        {/* Popup for highlighted text */}
-      <HighlightedText />
-      {/* Text to explain the process */}
 
-      {/* Image */}
-      <Image
-        src="/images/stars-and-lines.png" // Replace with the actual image path
-        alt="Register IP"
-        width="60px"
-        maxW="70%"
-        mb={-4}
-      />
+      {/* Popup for highlighted text */}
+      <HighlightedText />
 
       {/* Mint button (grayed out until text is selected) */}
       <Box m={2} width="100%">
-      <ClickableCard cardText="Register this text as IP" infoText="Register this text as IP" onClickAction={uploadAndMint} />
+        <ClickableCard
+          cardText="Register this text as IP"
+          infoText="Register this text as IP"
+          onClickAction={uploadAndMint}
+        />
       </Box>
+
+      {/* Bypass Button */}
+      <Button mt={4} bg="gray.300" color="black" size="md" onClick={onBypass}>
+        Bypass Registration
+      </Button>
     </Box>
   );
 };
 
-export default Register;
+export default RegisterIP;
