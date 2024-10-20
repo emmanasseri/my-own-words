@@ -27,7 +27,7 @@ const MintComponent = () => {
         console.log("Uploaded to IPFS: ", ipfsHash);
 
         // Call the minting function after uploading to IPFS
-        await mintOnServer(ipfsHash);
+        await mintNFTOnServer(ipfsHash);
 
         // Stop loading
         setIsLoading(false);
@@ -45,12 +45,13 @@ const MintComponent = () => {
     }
   };
 
-  const mintOnServer = async (ipfsHash: string) => {
+  const mintNFTOnServer = async (ipfsHash: string) => {
     try {
       // Start loading
       setIsLoading(true);
 
-      const response = await fetch("http://localhost:3000/api/mint", {
+      // Step 1: Mint the NFT
+      const mintResponse = await fetch("http://localhost:3000/api/mint", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,18 +59,56 @@ const MintComponent = () => {
         body: JSON.stringify({
           userWalletAddress: process.env.REACT_APP_USER_PUBLIC_KEY,
           metadataURI: ipfsHash,
-          tokenName: "hardcoded",
-          tokenLabel: "hardcoded",
+          tokenName: "hardcoded", // Placeholder, replace with actual token name
+          tokenLabel: "hardcoded", // Placeholder, replace with actual token label
         }),
       });
 
-      const result = await response.json();
-      console.log("Minting result:", result);
+      const mintResult = await mintResponse.json();
+
+      if (mintResult.success) {
+        console.log("NFT minted successfully:", mintResult.transactionHash);
+
+        // Step 2: Register the minted NFT as an IP asset on Story Protocol
+        const registerIPResponse = await fetch(
+          "http://localhost:3000/api/register-ip",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              nftContract: process.env.REACT_APP_NFT_CONTRACT_ADDRESS, // Example NFT contract address
+              tokenId: "12", // Example token ID, replace with actual token ID from minting result
+              ipMetadataURI: "ipfs://example_ip_metadata_uri",
+              ipMetadataHash: "0xYourIPMetadataHash", // Example hash, replace with actual
+              nftMetadataHash: "0xYourNFTMetadataHash", // Example hash, replace with actual
+              nftMetadataURI: ipfsHash, // The same metadata URI used for minting
+            }),
+          }
+        );
+
+        const registerIPResult = await registerIPResponse.json();
+
+        if (registerIPResult.success) {
+          console.log(
+            "NFT registered as IP successfully:",
+            registerIPResult.storyResponse
+          );
+        } else {
+          console.error(
+            "Error registering IP on Story Protocol:",
+            registerIPResult.error
+          );
+        }
+      } else {
+        console.error("Error minting NFT:", mintResult.error);
+      }
 
       // Stop loading after the operation is complete
       setIsLoading(false);
     } catch (error) {
-      console.error("Error minting NFT on server:", error);
+      console.error("Error minting NFT or registering IP on server:", error);
       setIsLoading(false); // Stop loading on error
     }
   };
