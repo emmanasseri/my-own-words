@@ -120,15 +120,13 @@ const Register: React.FC = () => {
       <Text fontSize="2xl" fontWeight="bold">
         Highlight text to register it as IP
       </Text>
-        
-        {/* Popup for highlighted text */}
+
+      {/* Popup for highlighted text */}
       <HighlightedText />
       {/* Text to explain the process */}
 
       {/* Image */}
       <Image
-        src="/images/cloud.png" // Replace with the actual image path
-        // src="/images/stars-and-lines.png"
         src="/images/stars-and-lines.png" // Replace with the actual image path
         alt="Register IP"
         width="60px"
@@ -138,7 +136,11 @@ const Register: React.FC = () => {
 
       {/* Mint button (grayed out until text is selected) */}
       <Box m={2} width="100%">
-      <ClickableCard cardText="Register this text as IP" infoText="Register this text as IP" onClickAction={uploadAndMint} />
+        <ClickableCard
+          cardText="Register this text as IP"
+          infoText="Register this text as IP"
+          onClickAction={uploadAndMint}
+        />
       </Box>
     </Box>
   );
