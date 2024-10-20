@@ -9,24 +9,25 @@ import { LoadingProvider } from "./contexts/LoadingContext";
 import { HighlightProvider } from "./contexts/HighlightContext";
 //import { Web3Provider } from "./contexts/Web3Context";
 import LoadingComponent from "./components/LoadingComponent";
-import Register from "./pages/Register";
+import RegisterParentPage from "./pages/RegisterParentPage";
 
 function App() {
   return (
     <HighlightProvider>
-    <LoadingProvider>
-      <Router>
-        <LoadingComponent />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/dispute" element={<Dispute />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/tutorial" element={<Tutorial />} />
-        </Routes>
-      </Router>
-    </LoadingProvider>
+      <LoadingProvider>
+        <Router>
+          <LoadingComponent />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/dispute" element={<Dispute />} />
+            <Route path="/register" element={<RegisterParentPage />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/tutorial" element={<Tutorial />} />
+            <Route path="/tutorial" element={<Tutorial />} />
+          </Routes>
+        </Router>
+      </LoadingProvider>
     </HighlightProvider>
   );
 }
