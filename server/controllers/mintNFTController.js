@@ -1,6 +1,6 @@
 // controllers/mintController.js
 const { mintNFTOnBlockchain } = require("../services/blockchain"); // Import blockchain minting logic
-const { registerIPAsset } = require("../services/storyProtocolService");
+const { registerIPAssetOnStory } = require("../services/storyProtocolService");
 
 // Controller function for minting an NFT
 exports.mintNFT = async (req, res) => {
@@ -28,7 +28,7 @@ exports.mintNFT = async (req, res) => {
 
     // Step 2: Register the minted NFT as an IP asset on Story Protocol
     console.log("Registering IP asset on Story Protocol...");
-    const storyResponse = await registerIPAsset(tokenId, metadataURI);
+    const storyResponse = await registerIPAssetOnStory(tokenId, metadataURI);
 
     if (!storyResponse) {
       console.error("Failed to get response from Story Protocol registration.");
