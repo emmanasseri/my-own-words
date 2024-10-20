@@ -107,18 +107,14 @@ const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
 
   return (
     <Box
-      p={6}
-      width={theme.views.expandedView.width}
-      height={theme.views.expandedView.height}
-      mx="auto"
+      overflow="visible"
       display="flex"
       flexDirection="column"
       alignItems="center"
-      gap={6}
-      pb={4}
+      width="100%"
     >
       {/* Heading */}
-      <Text fontSize="2xl" fontWeight="bold">
+      <Text fontSize="1xl" fontWeight="bold">
         Highlight text to register it as IP
       </Text>
 
@@ -132,12 +128,11 @@ const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
           infoText="Register this text as IP"
           onClickAction={onBypass}
         />
+        {/* Bypass Button */}
+        <Button mt={4} bg="gray.300" color="black" size="md" onClick={onBypass}>
+          Bypass Registration
+        </Button>
       </Box>
-
-      {/* Bypass Button */}
-      <Button mt={4} bg="gray.300" color="black" size="md" onClick={onBypass}>
-        Bypass Registration
-      </Button>
     </Box>
   );
 };

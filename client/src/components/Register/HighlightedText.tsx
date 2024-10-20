@@ -7,15 +7,14 @@ const HighlightedText = () => {
   console.log("HighlightedText: ", highlightedText);
   return (
     <Box
-      bg="gray.300"
-      borderColor="gray.600"
-      borderRadius={8}
-      display="flex"
-      flexDirection="column"
-      alignItems="left"
-      width="100%"
-      p={2}
-      gap={4}
+        bg="gray.300"
+        borderColor="gray.600"
+        borderRadius={8}
+        display="flex"
+        flexDirection="column"
+        alignItems="left"
+        width="100%"
+        p={2}
     >
       <p>{highlightedText || "No text highlighted yet!"}</p>
     </Box>
