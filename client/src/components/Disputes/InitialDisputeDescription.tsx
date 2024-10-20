@@ -5,9 +5,7 @@ interface InitialDisputeDescriptionProps {
   onNext: () => void; // Callback to switch to the next step
 }
 
-const InitialDisputeDescription: React.FC<InitialDisputeDescriptionProps> = ({
-  onNext,
-}) => {
+const InitialDisputeDescription: React.FC<InitialDisputeDescriptionProps> = ({onNext}) => {
   const [input, setInput] = useState(""); // State to track user input
 
   return (

@@ -8,7 +8,6 @@ import Tutorial from "./pages/Tutorial";
 import { LoadingProvider } from "./contexts/LoadingContext";
 //import { Web3Provider } from "./contexts/Web3Context";
 import LoadingComponent from "./components/LoadingComponent";
-import AIAnalysis from "./pages/AIAnalysis";
 import Register from "./pages/Register";
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
           <Route path="/dispute" element={<Dispute />} />
           <Route path="/register" element={<Register />} />
           <Route path="/history" element={<History />} />
-          <Route path="/ai-analysis" element={<AIAnalysis />} />
           <Route path="/tutorial" element={<Tutorial />} />
         </Routes>
       </Router>

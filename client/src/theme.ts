@@ -16,7 +16,7 @@ const theme = extendTheme({
     },
     expandedView: {
       width: "500px",
-      height: "327px",
+      height: "650px",
     },
     pageView: {
       width: "565px",

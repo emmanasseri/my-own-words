@@ -31,7 +31,7 @@ const ClickableCard: React.FC<ClickableCardProps> = ({
   return (
     <Box
       bg="gray.100" // Super light gray background
-      width="80%"
+      width="100%"
       p={4}
       border="2px solid black" // Black outlined border
       boxShadow="0px 4px 10px rgba(173, 216, 230, 0.8)" // Light blue shadow (light blue: rgba(173, 216, 230))
@@ -49,7 +49,7 @@ const ClickableCard: React.FC<ClickableCardProps> = ({
       onClick={onClickAction} // Trigger action when card is clicked
     >
       {/* Text in the middle of the card */}
-      <Text fontSize="lg" fontWeight="bold" color="black">
+      <Text fontSize="md" fontWeight="bold" color="black">
         {cardText}
       </Text>
 

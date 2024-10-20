@@ -25,7 +25,7 @@ const Home: React.FC = () => {
       position="relative" // Needed for positioning the images
       p={4}
       width={theme.views.expandedView.width}
-      maxHeight={theme.views.expandedView.height}
+      height={theme.views.expandedView.height}
       mx="auto"
       display="flex"
       flexDirection="column"
@@ -40,8 +40,8 @@ const Home: React.FC = () => {
         position="absolute"
         top={3}
         right={3}
-        width="105px"
-        height="105px"
+        width="120px"
+        height="120px"
         margin={1}
         zIndex={0} // Ensures it's behind the content
       />
@@ -53,8 +53,8 @@ const Home: React.FC = () => {
         position="absolute"
         bottom={3}
         left={3}
-        width="100px"
-        height="100px"
+        width="120px"
+        height="120px"
         margin={1}
         zIndex={0} // Ensures it's behind the content
       />
