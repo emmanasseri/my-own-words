@@ -1,5 +1,4 @@
-const { ethers } = require("ethers");
-const { StoryClient } = require("@story-protocol/core-sdk");
+// controllers/mintController.js
 const { mintNFTOnBlockchain } = require("../services/blockchain"); // Import blockchain minting logic
 const { registerIPAsset } = require("../services/storyProtocolService");
 
@@ -10,25 +9,25 @@ exports.mintNFT = async (req, res) => {
   try {
     // Step 1: Mint the NFT on the blockchain
     console.log("Minting NFT on blockchain...");
-    const txHash = await mintNFTOnBlockchain(
+    const { transactionHash, tokenId } = await mintNFTOnBlockchain(
       userWalletAddress,
       metadataURI,
       tokenName,
       tokenLabel
     );
 
-    if (!txHash) {
-      console.error("Failed to get transaction hash from minting.");
+    if (!transactionHash || !tokenId) {
+      console.error("Failed to get transaction hash or tokenId from minting.");
       return res.status(500).json({
         success: false,
-        error: "NFT minting failed, no transaction hash returned.",
+        error: "NFT minting failed, no transaction hash or tokenId returned.",
       });
     }
-    console.log("NFT successfully minted. Transaction hash:", txHash);
+    console.log("NFT successfully minted. Transaction hash:", transactionHash);
+    console.log("Minted token ID:", tokenId);
 
     // Step 2: Register the minted NFT as an IP asset on Story Protocol
     console.log("Registering IP asset on Story Protocol...");
-    const tokenId = 12; // Replace this with the actual token ID returned from minting logic
     const storyResponse = await registerIPAsset(tokenId, metadataURI);
 
     if (!storyResponse) {
@@ -43,7 +42,7 @@ exports.mintNFT = async (req, res) => {
     // Respond with success if both minting and registration succeeded
     res.json({
       success: true,
-      transactionHash: txHash,
+      transactionHash,
       storyResponse,
     });
   } catch (error) {
