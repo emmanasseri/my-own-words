@@ -64,7 +64,7 @@ const MintComponent = () => {
       });
 
       const result = await response.json();
-      console.log("Minting result:", result);
+      console.log("Minting and Story Protocol registration result:", result);
 
       // Stop loading after the operation is complete
       setIsLoading(false);
