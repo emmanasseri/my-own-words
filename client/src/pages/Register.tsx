@@ -128,6 +128,8 @@ const Register: React.FC = () => {
       {/* Image */}
       <Image
         src="/images/cloud.png" // Replace with the actual image path
+        // src="/images/stars-and-lines.png"
+        src="/images/stars-and-lines.png" // Replace with the actual image path
         alt="Register IP"
         width="60px"
         maxW="70%"
