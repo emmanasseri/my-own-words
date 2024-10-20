@@ -32,49 +32,6 @@ const Register: React.FC = () => {
     };
   }, []);
 
-  // const handleMint = async () => {
-  //   if (selectedText) {
-  //     setIsLoading(true); // Start loading
-
-  //     try {
-  //       // Step 1: Upload the selected text to IPFS
-  //       const contentID = await uploadToIPFS(selectedText);
-
-  //       if (contentID) {
-  //         console.log("IPFS content ID:", contentID);
-
-  //         // Step 2: Send a request to your server's minting endpoint
-  //         const response = await fetch("http://localhost:3000/api/mint", {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify({
-  //             userWalletAddress: process.env.REACT_APP_USER_PUBLIC_KEY, // Replace with recipient wallet address
-  //             metadataURI: contentID, // Use the contentID from IPFS
-  //             tokenName: "YourTokenName", // Hardcode or dynamically generate
-  //             tokenLabel: "YourTokenLabel", // Hardcode or dynamically generate
-  //           }),
-  //         });
-
-  //         const result = await response.json();
-  //         if (result.success) {
-  //           console.log(
-  //             `NFT minted successfully with transaction hash: ${result.transactionHash}`
-  //           );
-  //         } else {
-  //           console.error("Minting failed:", result.error);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error minting NFT or uploading to IPFS:", error);
-  //     } finally {
-  //       setIsLoading(false); // Stop loading
-  //       navigate("/home"); // Navigate to home page
-  //     }
-  //   }
-  //};
-
   const uploadAndMint = async () => {
     uploadToIPFS(selectedText);
   };
