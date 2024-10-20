@@ -13,29 +13,19 @@ const { uploadJSONToIPFS } = require("../utils/uploadToIPFS.js");
 const storyProviderUrl = process.env.STORY_RPC_URL;
 const privateKey = process.env.PRIVATE_KEY;
 const NFTContractAddress = process.env.CONTRACT_ADDRESS;
-const userWalletAddress = process.env.WALLET_ADDRESS;
 
 // Function to register an existing NFT as IP on Story Protocol
 const mintAndRegisterIP = async (contentToRegister) => {
   try {
+    // Set up ethers provider and wallet
     const provider = new ethers.JsonRpcProvider(storyProviderUrl);
     const wallet = new ethers.Wallet(privateKey, provider);
 
-    // Make sure the account is correctly configured
-    const account = {
-      address: wallet.address,
-      signTypedData: async (domain, types, message) =>
-        wallet._signTypedData(domain, types, message),
-      signTransaction: async (transaction) =>
-        wallet.signTransaction(transaction),
-      sendTransaction: async (signedTransaction) =>
-        provider.sendTransaction(signedTransaction),
-    };
-
+    // Initialize StoryClient with wallet (directly)
     const client = new StoryClient({
-      account, // Ensure that account with the signer is attached
+      wallet, // Use wallet directly
       transport: http(storyProviderUrl),
-      chainId: "iliad",
+      chainId: "iliad", // Story's testnet chain ID
     });
 
     // Prepare the IP metadata and NFT metadata

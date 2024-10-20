@@ -11,6 +11,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useLoading } from "../contexts/LoadingContext";
+import { useHighlight } from "../contexts/HighlightContext";
 
 interface DefineLicenseProps {
   ipid: string;
@@ -38,6 +39,7 @@ const DefineLicense: React.FC<DefineLicenseProps> = ({
   const [derivativesAllowed, setDerivativesAllowed] = useState(true);
   const [derivativesAttribution, setDerivativesAttribution] = useState(true);
   const { setIsLoading } = useLoading();
+  const { highlightedText } = useHighlight();
 
   const creationDate = new Date().toISOString(); // Automatically generate creation date
 
@@ -80,7 +82,7 @@ const DefineLicense: React.FC<DefineLicenseProps> = ({
           },
           body: JSON.stringify({
             userWalletAddress: process.env.REACT_APP_USER_PUBLIC_KEY,
-            ipMetadata: rawText,
+            ipMetadata: highlightedText,
             tokenName: "test name",
             tokenLabel: "test label",
             userLicenseData: licenseData,
