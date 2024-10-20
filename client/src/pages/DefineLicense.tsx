@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
-  Text,
+  Button,
+  Checkbox,
   FormControl,
   FormLabel,
   Input,
-  Textarea,
   Select,
-  Checkbox,
-  Button,
+  Text,
+  Textarea,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 
-// Example component for DefineLicense page
-const DefineLicense: React.FC<{ ipid: string; rawText: string }> = ({
+interface DefineLicenseProps {
+  ipid: string;
+  rawText: string;
+  onSubmit: () => void; // Function to trigger when form is submitted
+}
+
+const DefineLicense: React.FC<DefineLicenseProps> = ({
   ipid,
   rawText,
+  onSubmit,
 }) => {
-  const [licenseFlavor, setLicenseFlavor] = useState("recommended");
-  const [creationDate, setCreationDate] = useState("");
+  const [licenseFlavor, setLicenseFlavor] = useState(
+    "Non-Commercial Social Remixing"
+  );
   const [commercialUse, setCommercialUse] = useState(false);
   const [commercialAttribution, setCommercialAttribution] = useState(false);
-  const [derivativesAllowed, setDerivativesAllowed] = useState(false);
-  const [derivativesAttribution, setDerivativesAttribution] = useState(false);
+  const [derivativesAllowed, setDerivativesAllowed] = useState(true);
+  const [derivativesAttribution, setDerivativesAttribution] = useState(true);
 
-  const navigate = useNavigate();
-
-  // Generate creation date on component load (immutable)
-  useEffect(() => {
-    const currentDate = new Date().toISOString().slice(0, 19).replace("T", " ");
-    setCreationDate(currentDate);
-  }, []);
+  const creationDate = new Date().toISOString(); // Automatically generate creation date
 
   const handleSubmit = () => {
     const licenseData = {
@@ -45,9 +45,7 @@ const DefineLicense: React.FC<{ ipid: string; rawText: string }> = ({
     };
 
     console.log("License data submitted:", licenseData);
-    // Perform API call or save to state, etc.
-
-    navigate("/nextPage"); // Redirect after submission
+    onSubmit(); // Call onSubmit to transition to the next page
   };
 
   return (

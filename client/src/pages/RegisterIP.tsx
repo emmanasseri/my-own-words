@@ -1,37 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Image, Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { useLoading } from "../contexts/LoadingContext";
+import theme from "../theme";
+import axios from "axios";
 import HighlightedText from "../components/Register/HighlightedText";
 import ClickableCard from "../components/ClickableCard";
 
 interface RegisterIPProps {
   onMintSuccess: (ipfsHash: string, nftAddress: string, text: string) => void;
-  onBypass: () => void; // New prop for the bypass button
+  onBypass: () => void; // Add onBypass prop to handle bypass logic
 }
 
 const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
   const [selectedText, setSelectedText] = useState(""); // State to track selected text
-  const [buttonEnabled, setButtonEnabled] = useState(false);
-
+  const [buttonEnabled, setButtonEnabled] = useState(false); // State to track button enable/disable
+  const { setIsLoading } = useLoading(); // Hook to trigger loading
   const PINATA_JWT = process.env.REACT_APP_PINATA_JWT;
 
+  // Function to handle text selection in the browser
   const handleTextSelection = () => {
     const selectedText = window.getSelection()?.toString() || "";
     setSelectedText(selectedText);
-    setButtonEnabled(selectedText.length > 0);
+    setButtonEnabled(selectedText.length > 0); // Enable button if text is selected
   };
 
+  // Listen for text selection in the window
   useEffect(() => {
     document.addEventListener("mouseup", handleTextSelection);
+
+    // Cleanup event listener when component unmounts
     return () => {
       document.removeEventListener("mouseup", handleTextSelection);
     };
   }, []);
 
   const uploadAndMint = async () => {
-    const ipfsHash = await uploadToIPFS(selectedText);
-    if (ipfsHash) {
-      await mintOnServer(ipfsHash);
-    }
+    uploadToIPFS(selectedText);
   };
 
   const uploadToIPFS = async (text: string): Promise<string | null> => {
@@ -39,27 +44,44 @@ const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
     const data = { text };
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
+      // Start loading
+      setIsLoading(true);
+
+      const response = await axios.post(url, data, {
         headers: {
-          Authorization: `Bearer ${PINATA_JWT}`,
+          Authorization: `Bearer ${PINATA_JWT}`, // Ensure the JWT is passed correctly
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        const result = await response.json();
-        return result.IpfsHash;
+      if (response.status === 200) {
+        const ipfsHash = response.data.IpfsHash;
+        console.log("Uploaded to IPFS: ", ipfsHash);
+
+        // Call the minting function after uploading to IPFS
+        await mintOnServer(ipfsHash);
+
+        // Stop loading
+        setIsLoading(false);
+
+        return ipfsHash; // Return the content ID (CID)
+      } else {
+        console.error("Failed to upload to IPFS: ", response.status);
+        setIsLoading(false); // Stop loading on error
+        return null;
       }
     } catch (error) {
       console.error("Error uploading to IPFS:", error);
+      setIsLoading(false); // Stop loading on error
+      return null;
     }
-    return null;
   };
 
   const mintOnServer = async (ipfsHash: string) => {
     try {
+      // Start loading
+      setIsLoading(true);
+
       const response = await fetch("http://localhost:3000/api/mint", {
         method: "POST",
         headers: {
@@ -74,37 +96,40 @@ const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
       });
 
       const result = await response.json();
-      if (result.success) {
-        onMintSuccess(ipfsHash, result.transactionHash, selectedText);
-      }
+      console.log("Minting result:", result);
+
+      // Stop loading after the operation is complete
+      setIsLoading(false);
+
+      // On successful minting, call onMintSuccess
+      onMintSuccess(ipfsHash, "0xYourNFTAddress", selectedText); // Simulating NFT Address for now
     } catch (error) {
       console.error("Error minting NFT on server:", error);
+      setIsLoading(false); // Stop loading on error
     }
   };
 
   return (
     <Box
       p={6}
-      width="100%"
+      width={theme.views.expandedView.width}
+      height={theme.views.expandedView.height}
+      mx="auto"
       display="flex"
       flexDirection="column"
       alignItems="center"
       gap={6}
       pb={4}
     >
+      {/* Heading */}
       <Text fontSize="2xl" fontWeight="bold">
         Highlight text to register it as IP
       </Text>
 
+      {/* Popup for highlighted text */}
       <HighlightedText />
-      <Image
-        src="/images/stars-and-lines.png"
-        alt="Register IP"
-        width="60px"
-        maxW="70%"
-        mb={-4}
-      />
 
+      {/* Mint button (grayed out until text is selected) */}
       <Box m={2} width="100%">
         <ClickableCard
           cardText="Register this text as IP"
@@ -113,15 +138,9 @@ const RegisterIP: React.FC<RegisterIPProps> = ({ onMintSuccess, onBypass }) => {
         />
       </Box>
 
-      {/* Bypass button */}
-      <Button
-        mt={4}
-        bg="gray.200"
-        color="gray.600"
-        size="sm"
-        onClick={onBypass}
-      >
-        Bypass and Define License
+      {/* Bypass Button */}
+      <Button mt={4} bg="gray.300" color="black" size="md" onClick={onBypass}>
+        Bypass Registration
       </Button>
     </Box>
   );
