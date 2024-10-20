@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { Box, HStack, Stack } from "@chakra-ui/react";
 import theme from "../../theme";
@@ -7,7 +7,8 @@ import ClickableCard from "../ClickableCard";
 import { useNavigate } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import MessageOtherAuthorModal from "../Messaging/MessageOtherAuthorModal";
-
+import { useDispute } from "../../contexts/DisputeContext";
+import { useLoading } from "../../contexts/LoadingContext";
 
 /*
   Example IPA JSON Format (utilizes a subset of on-chain terms):
@@ -49,13 +50,14 @@ const test_claim = "The secondary author has plagiarized the primary author's wo
 
 async function callGPT({ primary_author_IPA, secondary_author_IPA, claim }: { primary_author_IPA: object; secondary_author_IPA: object; claim: string }) {
   const API_KEY = process.env.REACT_APP_GPT_API_KEY;
-  console.log("key:", API_KEY);
+  console.log("key:", API_KEY); 
   const API_URL = 'https://api.openai.com/v1/chat/completions';
   console.log(API_URL);
 
   console.log("primary_author_IPA:", JSON.stringify(primary_author_IPA));
   console.log("secondary_author_IPA:", JSON.stringify(secondary_author_IPA));
   console.log("claim:", claim);
+
 
   try {
     const response = await fetch(API_URL, {
@@ -78,6 +80,7 @@ async function callGPT({ primary_author_IPA, secondary_author_IPA, claim }: { pr
     if (response.ok) {
       const data = await response.json();
       console.log(data.choices[0].message.content);
+      return JSON.parse(data.choices[0].message.content);
     } else {
       console.error('Failed to fetch data from OpenAI:', response.statusText);
     }
@@ -86,12 +89,65 @@ async function callGPT({ primary_author_IPA, secondary_author_IPA, claim }: { pr
   }
 }
 
-//callGPT({ primary_author_IPA: test_primary_author_IPA, secondary_author_IPA: test_secondary_author_IPA, claim: test_claim });
-
 const ConfidenceScore: React.FC = () => {
-  const percentage = 42; // Hardcoded for now, will be a variable later
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure(); // Handle modal open/close
+  const { claim, ipAssetId1, ipAssetId2 } = useDispute(); // Get the claim from the context
+  const [percentage, setPercentage] = useState(0);
+  const [analysis, setAnalysis] = useState("");
+  const [result, setResult] = useState("");
+  const { setIsLoading } = useLoading();
+
+  useEffect(() => {
+    setIsLoading(true);
+    console.log("Claim:", claim);
+    console.log("IP Asset ID 1:", ipAssetId1);
+    console.log("IP Asset ID 2:", ipAssetId2);
+
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        'X-Api-Key': '4CWuPKSRTTxC7WvjPNsaZlAqJmrGL7OhNniUrZawdu8',
+        'X-Chain': 'story-testnet'
+      }
+    };
+    async function fetchData() {
+      const ipAsset1 = await fetch(`https://api.storyprotocol.net/api/v1/assets/${ipAssetId1}`, options)
+        .then(response => response.json())
+        .then(response => {
+          console.log(response);
+          return response;
+        })
+        .catch(err => {
+          console.error(err);
+          return null;
+        });
+
+      const ipAsset2 = await fetch(`https://api.storyprotocol.net/api/v1/assets/${ipAssetId2}`, options)
+        .then(response => response.json())
+        .then(response => {
+          console.log(response);
+          return response;
+        })
+        .catch(err => {
+          console.error(err);
+          return null;
+        });
+
+      if (ipAsset1 && ipAsset2) {
+        const result = await callGPT({ primary_author_IPA: ipAsset1, secondary_author_IPA: ipAsset2, claim: claim });
+        console.log(result);
+        setPercentage(result.confidence_score);
+        setAnalysis(result.analysis);
+        setResult(result);
+      }
+    }
+    fetchData();
+    setIsLoading(false);
+  }, []);
+
+
 
   const handleProceedWithMessage = () => {
     // Logic for proceeding with the message can go here
@@ -133,7 +189,7 @@ const ConfidenceScore: React.FC = () => {
         <Box display="flex" flexDirection="column" gap={2} width="100%">
           <ClickableCard
             cardText="Re-evaluate with Additional Details"
-            infoText="Add more details to the dispute."
+            infoText={analysis}
             onClickAction={() => navigate("/dispute")} // Add route as needed
           />
           <ClickableCard

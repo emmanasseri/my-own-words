@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Text, Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import theme from "../theme";
 import InitialDisputeDescription from "../components/Disputes/InitialDisputeDescription";
@@ -9,6 +9,21 @@ import ConfidenceScore from "../components/Disputes/ConfidenceScore";
 const Dispute = () => {
   const [step, setStep] = useState(1); // Step 1 = InitialDisputeDescription, Step 2 = AdditionalDisputeDetails
   const navigate = useNavigate();
+
+  // State for the form data
+  const [formData, setFormData] = useState({
+    claim: '',
+    ipAssetId1: '',
+    ipAssetId2: '',
+  });
+
+  // Update the form data as you progress through steps
+  const updateFormData = (newData: Partial<typeof formData>) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      ...newData, // Merge new data with the existing form data
+    }));
+  };
 
   return (
     <Box

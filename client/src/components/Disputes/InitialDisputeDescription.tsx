@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Textarea, Button } from "@chakra-ui/react";
+import { useDispute } from "../../contexts/DisputeContext";
 
 interface InitialDisputeDescriptionProps {
   onNext: () => void; // Callback to switch to the next step
 }
 
 const InitialDisputeDescription: React.FC<InitialDisputeDescriptionProps> = ({onNext}) => {
-  const [input, setInput] = useState(""); // State to track user input
+  const [ input, setInput ] = useState(""); // Local state for user input
+  const { claim, setClaim } = useDispute(); // Get the claim from the dispute context
+
+  useEffect(() => {
+    setClaim(input); // Update the claim in the context when the input changes
+  }, [input, setClaim]);
 
   return (
     <Box

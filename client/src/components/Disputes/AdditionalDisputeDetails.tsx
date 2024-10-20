@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Box, Input, Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom"; // Use navigate to go to the next page
+import { useDispute } from "../../contexts/DisputeContext"; // Import the dispute context
 
 interface InitialDisputeDescriptionProps {
   onNext: () => void; // Callback to switch to the next step
 }
 
 const AdditionalDisputeDetails: React.FC<InitialDisputeDescriptionProps> = ({onNext}) => {
-  const [ipAssetId1, setIpAssetId1] = useState("");
-  const [ipAssetId2, setIpAssetId2] = useState("");
+  const { ipAssetId1, setIpAssetId1 } = useDispute(); // Get the claim from the dispute context
+  const { ipAssetId2, setIpAssetId2 } = useDispute(); // Get the claim from the dispute context
   const navigate = useNavigate(); // Initialize the navigate hook
 
   const isNextEnabled = ipAssetId1 && ipAssetId2; // Enable the button if both inputs are filled

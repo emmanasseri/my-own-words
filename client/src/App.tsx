@@ -10,10 +10,12 @@ import { HighlightProvider } from "./contexts/HighlightContext";
 //import { Web3Provider } from "./contexts/Web3Context";
 import LoadingComponent from "./components/LoadingComponent";
 import RegisterParentPage from "./pages/RegisterParentPage";
+import { DisputeProvider } from "./contexts/DisputeContext";
 
 function App() {
   return (
     <HighlightProvider>
+      <DisputeProvider>
       <LoadingProvider>
         <Router>
           <LoadingComponent />
@@ -28,6 +30,7 @@ function App() {
           </Routes>
         </Router>
       </LoadingProvider>
+      </DisputeProvider>
     </HighlightProvider>
   );
 }
