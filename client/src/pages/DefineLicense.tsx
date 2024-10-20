@@ -107,8 +107,8 @@ const DefineLicense: React.FC<DefineLicenseProps> = ({
   };
 
   return (
-    <Box p={6} maxW="600px" mx="auto" mt={10}>
-      <Text fontSize="2xl" fontWeight="bold" mb={4}>
+    <Box p={6} width="100%" >
+      <Text fontSize="1xl" fontWeight="bold">
         Define License for Your IP Asset
       </Text>
 

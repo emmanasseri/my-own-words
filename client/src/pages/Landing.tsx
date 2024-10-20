@@ -41,8 +41,8 @@ const Landing = () => {
       alignItems="center"
       p={4}
     >
-      <Image src="/images/my-own-words-typing-animation.gif" alt="Intro GIF" maxW="50%" />
-      <Image src="/images/two-authors.png" alt="two kids" maxW="60%" mt={-5}/>
+      <Image src="/images/my-own-words-typing-animation.gif" alt="Intro GIF" maxW="65%" mt={-10} />
+      <Image src="/images/two-authors.png" alt="two kids" maxW="65%" mt={-10}/>
 
       <Text fontSize="sm" color="black" textAlign="center" mb={4}>
         Connect your wallet below to start registering your work as Intellectual
@@ -53,6 +53,7 @@ const Landing = () => {
         width="100%"
         alignItems="center"
         justifyContent="center"
+        mb={2}
       >
         {/* Styled Buttons */}
         <HStack

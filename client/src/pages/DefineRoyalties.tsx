@@ -12,17 +12,12 @@ const DefineRoyalties: React.FC = () => {
 
   return (
     <Box
-      p={6}
-      width={theme.views.expandedView.width}
-      height={theme.views.expandedView.height}
-      mx="auto"
       display="flex"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      gap={6}
     >
-      <Text fontSize="2xl" fontWeight="bold">
+      <Text fontSize="1xl" fontWeight="bold">
         Define Royalties
       </Text>
 

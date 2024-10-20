@@ -15,7 +15,6 @@ const HighlightedText = () => {
         alignItems="left"
         width="100%"
         p={2}
-        gap={4}
     >
       <p>{highlightedText || "No text highlighted yet!"}</p>
     </Box>

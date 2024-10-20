@@ -38,14 +38,13 @@ const RegisterParentPage: React.FC = () => {
       p={6}
       width={theme.views.expandedView.width} // Matching original dimensions
       height={theme.views.expandedView.height}
+      overflow="visible"
       mx="auto"
       display="flex"
       flexDirection="column"
       alignItems="center"
-      gap={6}
-      pb={4}
     >
-      <Heading mb={6} textAlign="center">
+      <Heading textAlign="center" mb={2}>
         Intellectual Property Registration
       </Heading>
 
