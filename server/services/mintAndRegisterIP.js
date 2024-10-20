@@ -1,5 +1,6 @@
-const { ethers } = require("ethers");
+const { isAddress, ethers } = require("ethers");
 const { toHex } = require("viem");
+const { Account, privateKeyToAccount, Address } = require("viem/accounts");
 const {
   AddressZero,
   PIL_TYPE,
@@ -11,8 +12,23 @@ const { createHash } = require("crypto");
 const { uploadJSONToIPFS } = require("../utils/uploadToIPFS.js");
 
 const storyProviderUrl = process.env.STORY_RPC_URL;
-const privateKey = process.env.PRIVATE_KEY;
 const NFTContractAddress = process.env.CONTRACT_ADDRESS;
+const privateKey = process.env.PRIVATE_KEY;
+
+if (
+  !storyPrivateKey ||
+  !storyPrivateKey.startsWith("0x") ||
+  storyPrivateKey.length !== 66
+) {
+  throw new Error(
+    'Invalid private key format. Ensure it starts with "0x" and is 66 characters long.'
+  );
+}
+const storyPrivateKey = `0x${process.env.STORY_PRIVATE_KEY}`;
+const account = privateKeyToAccount(storyPrivateKey);
+if (!isAddress(account.address)) {
+  throw new Error("Invalid account address generated.");
+}
 
 // Function to register an existing NFT as IP on Story Protocol
 const mintAndRegisterIP = async (contentToRegister) => {
