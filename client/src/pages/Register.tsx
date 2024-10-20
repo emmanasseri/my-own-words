@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useLoading } from "../contexts/LoadingContext";
 import theme from "../theme";
 import axios from "axios";
+import HighlightedText from "../components/Register/HighlightedText";
+import ClickableCard from "../components/ClickableCard";
 
 const Register: React.FC = () => {
   const [selectedText, setSelectedText] = useState(""); // Track selected text
@@ -157,6 +159,7 @@ const Register: React.FC = () => {
       flexDirection="column"
       alignItems="center"
       gap={6}
+      pb={4}
     >
       {/* Heading */}
       <Text fontSize="2xl" fontWeight="bold">
@@ -165,27 +168,29 @@ const Register: React.FC = () => {
 
       {/* Image */}
       <Image
-        src="/images/stars-and-lines.png"
+        src="/images/register-ip.png" // Replace with the actual image path
         alt="Register IP"
-        maxW="50%"
+        maxW="100%"
         mb={4}
       />
 
       {/* Block of text to highlight */}
       <Text fontSize="md" textAlign="left" width="100%">
-        Highlight text from anywhere on your browser window, whether you're in
-        Google Docs, Notion, Word online, or any other text editor. Once you've
-        highlighted the text, click the button below to register it as an IP
-        asset on Story Protocol. This may take a couple of minutes!
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+        odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla
+        quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent
+        mauris. Fusce nec tellus sed augue semper porta. Mauris massa.
+        Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos.
       </Text>
 
-      {/* Mint button */}
+      {/* Mint button (grayed out until text is selected) */}
       <Button
         bg={buttonEnabled ? "blue.500" : "gray.400"}
         color="white"
         _hover={buttonEnabled ? { bg: "blue.600" } : {}}
-        p={1}
-        disabled={!buttonEnabled}
+        disabled={!buttonEnabled} // Disable button if no text is selected
+        width="100%"
         onClick={uploadAndMint}
       >
         Mint Selected Text

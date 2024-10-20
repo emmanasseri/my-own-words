@@ -9,7 +9,17 @@
   "permissions": [
     "storage",
     "activeTab",
+    "scripting",
     "https://api.pinata.cloud/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
   ],
   "manifest_version": 3
 }

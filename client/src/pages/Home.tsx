@@ -25,21 +25,23 @@ const Home: React.FC = () => {
       position="relative" // Needed for positioning the images
       p={4}
       width={theme.views.expandedView.width}
+      height={theme.views.expandedView.height}
+      minHeight={theme.views.expandedView.height}
       maxHeight={theme.views.expandedView.height}
       mx="auto"
       display="flex"
       flexDirection="column"
       justifyContent="center" // Center the content vertically
       alignItems="center" // Center the content horizontally
-      gap={4}
+      gap={1}
     >
       {/* Top-right Image */}
       <Image
         src="/images/saturn-and-stars.png" // Replace with the correct image path
         alt="Top Right Image"
         position="absolute"
-        top={3}
-        right={3}
+        top={2}
+        right={2}
         width="105px"
         height="105px"
         margin={1}
@@ -51,8 +53,8 @@ const Home: React.FC = () => {
         src="/images/city-scape.png" // Replace with the correct image path
         alt="Bottom Left Image"
         position="absolute"
-        bottom={3}
-        left={3}
+        bottom={1}
+        left={1}
         width="100px"
         height="100px"
         margin={1}
